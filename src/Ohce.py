@@ -1,9 +1,12 @@
 class Ohce:
     def hello(self):
-        return
+        return "Bonjour"
 
     def goodbye(self):
-        return
+        return "Au revoir"
         
     def palindrome(self, world):
-        return
+        reversed = world[::-1]
+        bienDit = "Bien dit\n" if reversed == world else ""
+
+        return self.hello()+ "\n" + reversed + "\n" + bienDit + self.goodbye()
