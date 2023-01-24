@@ -1,5 +1,5 @@
 import unittest
-from src import Ohce
+from src.Ohce import Ohce
 
 class PalindromeTest(unittest.TestCase):
     def test_reversed(self):
@@ -11,7 +11,7 @@ class PalindromeTest(unittest.TestCase):
         self.assertEqual(world[::-1], result[1])
     
     def test_palindrome(self):
-        world = "kayac"
+        world = "kayak"
 
         ohce = Ohce()
         result = ohce.palindrome(world).split("\n")
