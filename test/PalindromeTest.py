@@ -1,6 +1,5 @@
 import unittest
 import parameterized as parameterized
-from src.Ohce import Ohce
 from src.Languages.Constants import Translation
 from unittest.mock import Mock
 from src.utilities.OhceBuilder import OhceBuilder
