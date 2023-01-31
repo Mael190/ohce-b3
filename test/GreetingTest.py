@@ -3,38 +3,57 @@ from unittest.mock import Mock
 import parameterized
 from src.Ohce import Ohce
 from src.Languages.Constants import Translation
+from src.utilities.OhceBuilder import OhceBuilder
 
 
 class GreetingTest(unittest.TestCase):
     @parameterized.parameterized.expand([
-        ["fr_FR", Translation["fr_FR"]["HELLO"]],
-        ["en_EN", Translation["en_EN"]["HELLO"]],
+        ["fr_FR", "MORNING"],
+        ["fr_FR", "AFTERNOON"],
+        ["fr_FR", "EVENING"],
+        ["fr_FR", "NIGHT"],
+        ["en_EN", "MORNING"],
+        ["en_EN", "AFTERNOON"],
+        ["en_EN", "EVENING"],
+        ["en_EN", "NIGHT"],
     ])
-    def test_hello(self, language, hello):
-        ohce = Ohce(language, Translation)
+    def test_hello(self, language, period):
+        ohce_builder = OhceBuilder()
+        ohce_builder.set_day_period(period)
+        ohce_builder.set_language(language)
+        ohce = ohce_builder.build()
         ohce.reversed = ohce.goodbye = Mock()
         ohce.reversed.return_value = ohce.goodbye.return_value = ""
 
         # QUAND on saisit une chaîne
         resultat = ohce.palindrome("kiwi")
 
-        # ALORS «Bonjour» est envoyé avant toute réponse
-        self.assertIn(hello, resultat)
+        # ALORS «Bonjour» de la langue et en fonction de la période est envoyé avant toute réponse
+        self.assertIn(Translation[language][period]["HELLO"], resultat)
 
     @parameterized.parameterized.expand([
-        ["fr_FR", Translation["fr_FR"]["GOODBYE"]],
-        ["en_EN", Translation["en_EN"]["GOODBYE"]],
+        ["fr_FR", "MORNING"],
+        ["fr_FR", "AFTERNOON"],
+        ["fr_FR", "EVENING"],
+        ["fr_FR", "NIGHT"],
+        ["en_EN", "MORNING"],
+        ["en_EN", "AFTERNOON"],
+        ["en_EN", "EVENING"],
+        ["en_EN", "NIGHT"],
     ])
-    def test_goodbye(self, language, goodbye):
-        ohce = Ohce(language, Translation)
+    def test_goodbye(self, language, period):
+        ohce_builder = OhceBuilder()
+        ohce_builder.set_day_period(period)
+        ohce_builder.set_language(language)
+        ohce = ohce_builder.build()
         ohce.reversed = ohce.hello = Mock()
         ohce.reversed.return_value = ohce.hello.return_value = ""
 
         # QUAND on saisit une chaîne
         resultat = ohce.palindrome("kiwi")
 
-        #  ALORS «Au revoir»  est envoyé en dernier
-        self.assertIn(goodbye, resultat)
+        #  ALORS «Au revoir» de la langue et en fonction de la période est envoyé en dernier
+        self.assertIn(Translation[language][period]["GOODBYE"], resultat)
 
 
 if __name__ == '__main__':
