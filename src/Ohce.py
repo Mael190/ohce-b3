@@ -1,13 +1,14 @@
 class Ohce:
-    def __init__(self, language, translation):
+    def __init__(self, language, translation, day_period):
         self.language = language
         self.translation = translation
+        self.day_period = day_period
 
     def hello(self):
-        return self.translation[self.language]["HELLO"] + "\n"
+        return self.translation[self.language][self.day_period]["HELLO"] + "\n"
 
     def goodbye(self):
-        return self.translation[self.language]["GOODBYE"]
+        return self.translation[self.language][self.day_period]["GOODBYE"]
 
     def bien_dit(self):
         return self.translation[self.language]["WELL_SAID"] + "\n"
